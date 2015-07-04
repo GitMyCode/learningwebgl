@@ -5,31 +5,36 @@
   <title></title>
 
   <script type="text/javascript" src="../glMatrix-0.9.5.min.js"></script>
-  <!--fragment shader-->
-  <script id="shader-fs" type="x-shader/x-fragment">
-  precision mediump float;
 
-  void main(void) {
-    gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-  }
-  </script>
   <!--Vertex shader-->
   <script id="shader-vs" type="x-shader/x-vertex">
   attribute vec3 aVertexPosition;
+  attribute vec4 aVertexColor;
 
   uniform mat4 uMVMatrix;
   uniform mat4 uPMatrix;
 
+  varying vec4 vColor;
+
   void main(void) {
     gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+    vColor = aVertexColor;
+  }
+  </script>
+  <!--fragment shader-->
+  <script id="shader-fs" type="x-shader/x-fragment">
+  precision mediump float;
+  varying vec4 vColor;
+  void main(void) {
+    gl_FragColor = vColor;
   }
   </script>
 
-  <script type="text/javascript" src="lesson01.js"></script>
+  <script type="text/javascript" src="lesson02.js"></script>
 
 </head>
 <body onload="webGLStart();">
-  <canvas id="lesson01-canvas" width="500" height="500"></canvas>
+  <canvas id="lesson01-canvas" width="800" height="800"></canvas>
 
   <script type="text/javascript" src="http://localhost:35729/livereload.js">  </script>
 </body>
